@@ -1,0 +1,15 @@
+package comisiones;
+
+import com.mycompany.semana6.ClsObjetos;
+
+
+public class ClsPrincipal {
+    public static void main(String[] args) {
+        
+        ClsObjetos objets = new ClsObjetos();
+        
+        objets.Menu();
+        
+    }
+
+}

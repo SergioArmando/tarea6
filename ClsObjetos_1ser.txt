@@ -1,0 +1,144 @@
+package com.mycompany.semana6;
+
+import java.text.NumberFormat;
+import java.util.*;
+
+
+public class ClsObjetos_1 {
+    
+    Scanner teclado = new Scanner(System.in);
+    public static NumberFormat formatoCantidad = NumberFormat.getCurrencyInstance(new Locale("es","gt"));
+    List<ClsModeloDatos> lista = new ArrayList<>();
+    
+    
+    public ClsModeloDatos IngresoInformacion (){
+        ClsModeloDatos Dato = new ClsModeloDatos();
+        
+        System.out.println("Hola por favor ingrese el nombre");
+        Dato.setNombre(teclado.nextLine());
+        
+        System.out.println("registre venta de Enero");
+        Dato.setVenero(teclado.nextInt());
+                
+        System.out.println("registre venta de Febrero");
+        Dato.setVfebrero(teclado.nextInt());
+        
+        System.out.println("registre venta de Marzo");
+        Dato.setVmarzo(teclado.nextInt());
+        teclado.nextLine();
+        
+        lista.add(Dato);
+        return Dato;
+    }
+   
+    public static String cambiarFormato(double cantidad){
+        return formatoCantidad.format(cantidad);
+    }
+    
+    public void DesplegarInformación(){
+        
+        for(ClsModeloDatos ele: lista){
+            
+            System.out.println(ele.getNombre() + "       " + cambiarFormato(ele.getVenero()) +"     "+ cambiarFormato(ele.getVfebrero()) +"     "+ cambiarFormato(ele.getVmarzo()));
+        }
+    }
+   
+    public void Sumar(){
+        
+        double totalEnero = 1;
+       double totalFebrero = 2;
+       double totalMarzo = 3;
+       
+       for( ClsModeloDatos ele: lista){
+           totalEnero += ele.getVenero();
+           totalFebrero += ele.getVfebrero();
+           totalMarzo += ele.getVmarzo();
+       }
+       double GranTotal = totalEnero+totalFebrero+totalMarzo;
+        System.out.println("gran total hasta la fecha: "+ GranTotal);
+        System.out.println("gran total de enero: " + totalEnero);
+        System.out.println("gran total de febrero: " + totalFebrero);
+        System.out.println("gran total de Marzo: " + totalMarzo);
+      
+    }
+ 
+    public void CargarTotales(){
+         for(ClsModeloDatos Mp : lista){  
+        
+             Mp.setTotal(Mp.vferero+ Mp.Vmarzo + Mp.Venero);
+        }
+    }
+    public void QuienVenMas(){
+        
+        CargarTotales();
+        if(lista.get(2).getTotal()> lista.get(0).getTotal() || lista.get(0).getTotal() <= lista.get(1).getTotal()) if(lista.get(1).getTotal() > lista.get(0).getTotal() && lista.get(1).getTotal()> lista.get(2).getTotal()){
+            System.out.println(lista.get(1).getNombre() +"  "+ lista.get(1).getTotal());
+        }else{
+            System.out.println(lista.get(2).getTotal()+ lista.get(2).getNombre() +"  ");
+        }else {
+            System.out.println(lista.get(0).getNombre() +"  "+ lista.get(0).getTotal());
+        }
+    }     
+    public void QuienVenMenos(){
+        CargarTotales();
+        if(lista.get(0).getTotal()>= lista.get(2).getTotal() || lista.get(1).getTotal() < lista.get(0).getTotal())if(lista.get(1).getTotal() < lista.get(0).getTotal() && lista.get(1).getTotal() < lista.get(2).getTotal()){
+            System.out.println(lista.get(1).getNombre() +"  "+ lista.get(1).getTotal());
+        }else{
+            System.out.println(lista.get(2).getNombre() +"  "+ lista.get(2).getTotal());
+        }else {
+            System.out.println(lista.get(0).getNombre() +"  "+ lista.get(0).getTotal());
+        }
+    }
+    
+    public void BusquedaCantidades(){
+          double valor=0;
+     int indice =0;
+     System.out.println("escriba el valor a buscar");
+     valor= teclado.nextDouble();
+     indice= lista.indexOf(valor);
+     if(indice!=-1){
+     System.out.println("dato situado en el indice "+indice);
+ 
+     }else{
+              System.out.println("dato sin rango");
+     }
+    }
+   
+    public void Menu(){
+         Scanner t = new Scanner(System.in);
+            String opc =" ";
+            
+            do{
+            System.out.println("1- Hola ingrese la informacion");
+            System.out.println("2- Despliegue de informacion");
+            System.out.println("3- menor venta en 3 meses quien fue?");
+            System.out.println("4- mayor venta en 3 meses quien fue?");
+            System.out.println("5- edicion de registro");
+            System.out.println("6- busqueda por la cantidad ");
+            System.out.println("7- gran total por los meses");
+            System.out.println("8-  salir");
+            opc = t.nextLine();
+            
+            switch(opc){
+                case"1" -> IngresoInformacion();
+                
+                case"2" -> DesplegarInformación();
+                
+                case"3" -> QuienVenMenos();
+                
+                case"4" -> QuienVenMas();
+                
+                case"5" -> QuienVenMas();
+                
+                case"6" -> BusquedaCantidades();
+                
+                case"7" -> Sumar();
+                
+                case"8" -> System.out.println("muchas gracias");
+                
+                
+            }
+        }while(!opc.equals("8"));
+            
+    }
+}
